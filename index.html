@@ -1,16 +1,21 @@
-<!DOCTYPE html>
-<script src="wasm_exec.js"></script>
-<script>
-// Polyfill
-if (!WebAssembly.instantiateStreaming) {
-    WebAssembly.instantiateStreaming = async (resp, importObject) => {
-        const source = await (await resp).arrayBuffer();
-        return await WebAssembly.instantiate(source, importObject);
-    };
-}
-
-const go = new Go();
-WebAssembly.instantiateStreaming(fetch("qrift.wasm"), go.importObject).then(result => {
-    go.run(result.instance);
-});
+<!doctype html>
+<html lang="en">
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+  </style>
+<script type="module">
+  import init from './bevy_game.js'
+  init()
 </script>
+
+<body >
+  <!-- <div style="width: 100%; height: 100%">
+    <canvas id="bevy"></canvas>
+  </div> -->
+</body>
+
+</html>
